@@ -1,0 +1,24 @@
+
+module zabbix_sms 1.0;
+
+require {
+	type user_tmp_t;
+	type smsd_spool_t;
+	type zabbix_t;
+	type zabbix_tmp_t;
+	type smsd_t;
+	class capability { dac_override dac_read_search };
+	class file { create getattr open read unlink write };
+	class dir { add_name remove_name search write };
+}
+
+#============= smsd_t ==============
+
+allow smsd_t self:capability { dac_override dac_read_search };
+allow smsd_t user_tmp_t:file { open unlink };
+allow smsd_t zabbix_tmp_t:file { open unlink };
+
+#============= zabbix_t ==============
+allow zabbix_t smsd_spool_t:dir search;
+allow zabbix_t smsd_spool_t:dir { add_name remove_name write };
+allow zabbix_t smsd_spool_t:file { create getattr open read unlink write };

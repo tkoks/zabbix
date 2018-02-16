@@ -1,0 +1,1 @@
+cscript //NoLogo "c:\program files\zabbix\win_checks.vbs" pmip03|"c:\program files\zabbix\zabbix_sender.exe" -z 10.10.100.189 -i -
